@@ -9,6 +9,10 @@ public class Interactable : MonoBehaviour{
 
     public bool isInteracting = false;
 
+    public void Start(){
+        this.transform.tag = "Interactable";
+    }
+
     public void Update(){
         if(isInteracting){
             progress += Time.deltaTime;
@@ -16,6 +20,11 @@ public class Interactable : MonoBehaviour{
         } else{
             progress -= Time.deltaTime;
             whileNotInteracting();
+        }
+
+        if(progress < 0){
+            progress = 0;
+            //TODO enable or disable the UI progress bar
         }
 
         if(progress > waitTime){
