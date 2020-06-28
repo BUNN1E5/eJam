@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool isSprinting = false;
 
     Rigidbody rigid;
-    ParticleSystem sprintClouds;
+    //ParticleSystem sprintClouds;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +27,10 @@ public class PlayerController : MonoBehaviour
         isSprinting = Input.GetButton("Sprint");
 
         if(isSprinting){
-            sprintClouds.Play();
+            //sprintClouds.Play();
             Move(input * walkSpeed * sprintModifier);
         } else{
-            sprintClouds.Pause();
+            //sprintClouds.Pause();
             Move(input * walkSpeed);
         }
     }
