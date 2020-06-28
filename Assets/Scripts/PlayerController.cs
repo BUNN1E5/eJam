@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
 
     Animator animator;
 
+    public GameObject distractionPrefab;
+
+    public GameObject decorationPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,14 +47,23 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Action0")){
             Interact();
+            PlaceDecoration();
         } else if(Input.GetButtonUp("Action0")){
             UnInteract();
         }
-
+        if(Input.GetButtonDown("Action1")){
+            Interact();
+            PlaceDistraction();
+        }
 
         animator.SetFloat("Speed", rigid.velocity.magnitude);
     }
-
+    public void PlaceDecoration(){
+        Instantiate(decorationPrefab,transform.position,transform.rotation);
+    }
+    public void PlaceDistraction(){
+        Instantiate(distractionPrefab,transform.position,transform.rotation);
+    }
     Interactable findInteractable(){
         RaycastHit hit;
         Physics.SphereCast(this.transform.position, SphereCastRadius, this.transform.forward, out hit, maxInteractDistance, ~LayerMask.GetMask("Player"));
