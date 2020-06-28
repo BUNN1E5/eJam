@@ -26,6 +26,8 @@ public class AIController : MonoBehaviour
         Suspicous,
 
         Investigating,
+
+        Distracted,
     }
     public state myState;
     public LayerMask suspiciousObjects;
@@ -38,7 +40,8 @@ public class AIController : MonoBehaviour
     public AudioClip alertClip;
     private bool audioBoolOne = false;
     private bool audioBoolTwo = false;
-
+    GameObject distractionGO;
+    LineRenderer lineRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,14 +49,29 @@ public class AIController : MonoBehaviour
         waypointIndex=idleWaypoints.Length;
         StartCoroutine(FindNewDestination(waypointTaskTime));
         suspicionProgress=0;
+        lineRenderer=GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {   
+        if(myState==state.Busy){
+            lineRenderer.enabled=false;
+        }
+        else{
+             lineRenderer.enabled=true;
+        }
+        lineRenderer.SetPosition(0,transform.position);
+        lineRenderer.SetPosition(1,agent.destination);
         if(myState==state.Suspicous){
             if(Vector3.Distance(transform.position,agent.destination)<destinationThreshold){               
                 StartCoroutine(GrowSuspician());
+            }
+        } 
+        if(myState==state.Distracted){
+            if(Vector3.Distance(transform.position,agent.destination)<destinationThreshold){
+                Destroy(distractionGO,waypointTaskTime);               
+                StartCoroutine(FindNewDestination(waypointTaskTime));
             }
         } 
         if(myState==state.Walking){
@@ -62,6 +80,12 @@ public class AIController : MonoBehaviour
             }
             CheckForSuspiciousObjects();
         }
+    }
+    public void DistractAI(GameObject distrcation){
+        myState=state.Distracted;
+        StopCoroutine(GrowSuspician());
+        agent.destination=distrcation.transform.position;
+        distractionGO=distrcation;
     }
     IEnumerator GrowSuspician(){
         if (audioBoolTwo != true)
