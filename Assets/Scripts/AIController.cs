@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+[System.Serializable]
+    public enum state{
+        Busy,
+        Walking,
+        Suspicous,
+
+        Investigating,
+
+        Distracted,
+    }
 public class AIController : MonoBehaviour
 {
     NavMeshAgent agent;
@@ -20,16 +30,7 @@ public class AIController : MonoBehaviour
 
     public Material progressBar;
     GameObject subjectOfSuspician;
-    [System.Serializable]
-    public enum state{
-        Busy,
-        Walking,
-        Suspicous,
-
-        Investigating,
-
-        Distracted,
-    }
+    
     public state myState;
     public LayerMask suspiciousObjects;
 

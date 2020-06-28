@@ -46,14 +46,17 @@ public class PlayerController : MonoBehaviour
         }
 
         if(Input.GetButtonDown("Action0")){
-            Interact();
             PlaceDecoration();
+            //Interact();
+            
         } else if(Input.GetButtonUp("Action0")){
-            UnInteract();
+            //UnInteract();
         }
         if(Input.GetButtonDown("Action1")){
-            Interact();
-            PlaceDistraction();
+            if(!(FindObjectOfType<AIController>().myState==state.Distracted))
+                PlaceDistraction();
+            //Interact();
+            
         }
 
         animator.SetFloat("Speed", rigid.velocity.magnitude);
