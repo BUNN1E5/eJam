@@ -20,12 +20,14 @@ public class PlayerController : MonoBehaviour
     public Transform heldPosition;
 
     Rigidbody rigid;
-    //ParticleSystem sprintClouds;
+
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = this.GetComponent<Rigidbody>();
+        animator = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,12 +37,19 @@ public class PlayerController : MonoBehaviour
         isSprinting = Input.GetButton("Sprint");
 
         if(isSprinting){
-            //sprintClouds.Play();
             Move(input, walkSpeed * sprintModifier);
         } else{
-            //sprintClouds.Pause();
             Move(input, walkSpeed);
         }
+
+        if(Input.GetButtonDown("Action0")){
+            Interact();
+        } else if(Input.GetButtonUp("Action0")){
+            UnInteract();
+        }
+
+
+        animator.SetFloat("Speed", rigid.velocity.magnitude);
     }
 
     Interactable findInteractable(){
