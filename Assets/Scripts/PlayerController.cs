@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public GameObject distractionPrefab;
 
     public GameObject decorationPrefab;
+    bool canPlaceDecoration = true;
+    float cooldownTime = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if(Input.GetButtonDown("Action0")){
-            PlaceDecoration();
+            if(canPlaceDecoration){
+                PlaceDecoration();
+                StartCoroutine(cooldown(cooldownTime));
+            }
             //Interact();
             
         } else if(Input.GetButtonUp("Action0")){
@@ -61,12 +66,21 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("Speed", rigid.velocity.magnitude);
     }
+
+    IEnumerator cooldown(float time){
+        canPlaceDecoration = false;
+        yield return new WaitForSeconds(time);
+        canPlaceDecoration = true;
+    }
+
     public void PlaceDecoration(){
         Instantiate(decorationPrefab,transform.position,transform.rotation);
     }
+
     public void PlaceDistraction(){
         Instantiate(distractionPrefab,transform.position,transform.rotation);
     }
+
     Interactable findInteractable(){
         RaycastHit hit;
         Physics.SphereCast(this.transform.position, SphereCastRadius, this.transform.forward, out hit, maxInteractDistance, ~LayerMask.GetMask("Player"));
