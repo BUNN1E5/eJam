@@ -113,6 +113,8 @@ public class AIController : MonoBehaviour
         yield return new WaitForSeconds(suspicionSpeed);
         progressBar.color=Color.green;
         suspicionProgress++;
+        GameManager.lives--;
+        GameManager.decorationCount--;
         Destroy(subjectOfSuspician);
         myState=state.Walking;
     }

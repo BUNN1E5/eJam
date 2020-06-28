@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public int requiredDecorationsForWin;
     public static int decorationCount=0;
     public static int lives=3;
+    public bool over=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +17,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(decorationCount==requiredDecorationsForWin){
+        if(decorationCount==requiredDecorationsForWin&&!over){
             Win();
+        }
+        if(lives==0&&!over){
+            Lose();
         }
     }
     public void Win(){
         print("WIN");
+    }
+    public void Lose(){
+        print("LOSE");
+        SceneManager.LoadScene(0);
     }
 }

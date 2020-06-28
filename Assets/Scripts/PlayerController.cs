@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PlaceDecoration(){
+        GameManager.decorationCount++;
         Instantiate(decorationPrefab,transform.position,transform.rotation);
     }
 

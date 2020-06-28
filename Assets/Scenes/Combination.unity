@@ -4162,7 +4162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b06eeeb8226bcbc9553d8ea296a9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredDecorationsForWin: 0
+  requiredDecorationsForWin: 5
+  over: 0
 --- !u!4 &2115467935
 Transform:
   m_ObjectHideFlags: 0
