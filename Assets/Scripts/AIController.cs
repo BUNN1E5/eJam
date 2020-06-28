@@ -18,6 +18,7 @@ public class AIController : MonoBehaviour
     [Range(0,1)]
     public float fovRange;
 
+    public Material progressBar;
     GameObject subjectOfSuspician;
     [System.Serializable]
     public enum state{
@@ -83,11 +84,15 @@ public class AIController : MonoBehaviour
     }
     public void DistractAI(GameObject distrcation){
         myState=state.Distracted;
+        progressBar.color=Color.green;
         StopCoroutine(GrowSuspician());
         agent.destination=distrcation.transform.position;
         distractionGO=distrcation;
     }
     IEnumerator GrowSuspician(){
+        progressBar.color=Color.red;
+        StartCoroutine(loadProgress(suspicionSpeed));
+        
         if (audioBoolTwo != true)
         {
             audioBoolTwo = true;
@@ -97,6 +102,7 @@ public class AIController : MonoBehaviour
         }
         myState=state.Investigating;
         yield return new WaitForSeconds(suspicionSpeed);
+        progressBar.color=Color.green;
         suspicionProgress++;
         Destroy(subjectOfSuspician);
         myState=state.Walking;
@@ -106,6 +112,7 @@ public class AIController : MonoBehaviour
         // play im busy
         AudioManager.Instance.PlaySFX(busyClips[Random.Range(0, busyClips.Length)], 0.8f, 1.0f);
         agent.isStopped=true;
+        StartCoroutine(loadProgress(waitTime));
         yield return new WaitForSeconds(waitTime);
         myState=state.Walking;     
         agent.isStopped=false;
@@ -119,6 +126,16 @@ public class AIController : MonoBehaviour
         NavMeshHit navHit;
         NavMesh.SamplePosition (nextWaypoint, out navHit, 1,navLayer); 
         agent.SetDestination(navHit.position); 
+    }
+    IEnumerator loadProgress(float waitTime){
+        progressBar.SetFloat("Progress",0);
+        float timeWaited=0;
+        while(timeWaited<waitTime){
+            progressBar.SetFloat("Progress",timeWaited/waitTime);
+            yield return new WaitForSeconds(0.05f);
+            timeWaited+=0.05f;
+        }
+        progressBar.SetFloat("Progress",0);
     }
     void CheckForSuspiciousObjects(){
         Collider[] hits=Physics.OverlapSphere(transform.position,visionRadius,suspiciousObjects);
