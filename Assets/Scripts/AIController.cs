@@ -35,6 +35,7 @@ public class AIController : MonoBehaviour
     public AudioClip susClip;
     public AudioClip shufflingClip;
     public AudioClip[] investigateClip;
+    public AudioClip alertClip;
     private bool audioBoolOne = false;
     private bool audioBoolTwo = false;
 
@@ -109,6 +110,7 @@ public class AIController : MonoBehaviour
                         {
                             audioBoolOne = true;
                             AudioManager.Instance.PlaySFX(susClip, 0.8f, 1.0f);
+                            AudioManager.Instance.PlaySFX(alertClip, 0.6f, 1.0f);
                             StartCoroutine(MakeAudioBoolOneFalse());
                         }
                         myState =state.Suspicous;

@@ -2374,6 +2374,11 @@ PrefabInstance:
       propertyPath: investigateClip.Array.data[1]
       value: 
       objectReference: {fileID: 8300000, guid: 82071b30e2bdb5740b7c9f026bb4775e, type: 3}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: alertClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 05e5e2fe9a156d2428288cfbaa974a93, type: 3}
     - target: {fileID: 7657094290044961353, guid: efd1326a92236df46a6d9e69572e090d,
         type: 3}
       propertyPath: m_Name
