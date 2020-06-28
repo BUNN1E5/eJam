@@ -43,6 +43,7 @@ public class AIController : MonoBehaviour
     private bool audioBoolTwo = false;
     GameObject distractionGO;
     LineRenderer lineRenderer;
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,11 +52,18 @@ public class AIController : MonoBehaviour
         StartCoroutine(FindNewDestination(waypointTaskTime));
         suspicionProgress=0;
         lineRenderer=GetComponent<LineRenderer>();
+        animator = this.GetComponentInChildren<Animator>();
     }
+
+    Vector3 lastPos = Vector3.zero;
 
     // Update is called once per frame
     void Update()
     {   
+
+        animator.SetFloat("Speed", ((this.transform.position - lastPos) / Time.deltaTime).sqrMagnitude);
+        lastPos = this.transform.position;
+
         if(myState==state.Busy){
             lineRenderer.enabled=false;
         }
