@@ -632,7 +632,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28934
+  m_Name: pb_Mesh-5192
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1002,7 +1002,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29068
+  m_Name: pb_Mesh-5198
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1165,7 +1165,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29056
+  m_Name: pb_Mesh-5196
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1672,7 +1672,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29036
+  m_Name: pb_Mesh-5194
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2276,6 +2276,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
         type: 3}
+      propertyPath: busyClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: investigateClip.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
       propertyPath: surface
       value: 
       objectReference: {fileID: 96578927}
@@ -2334,6 +2344,36 @@ PrefabInstance:
       propertyPath: suspiciousObjects.m_Bits
       value: 256
       objectReference: {fileID: 0}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: busyClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: ae6c1e7e2b6247b45b167683cc3a1c7c, type: 3}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: busyClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: d576b6f42c8953a459725281f5dc7a8a, type: 3}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: susClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 111a6fa15f126c34cba35c75da2339fe, type: 3}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: shufflingClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09451d85e0270df4ca1cf01550ff7ba1, type: 3}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: investigateClip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1258b6d5d0bdf0a43bb2070dab1df3df, type: 3}
+    - target: {fileID: 7657094290044961348, guid: efd1326a92236df46a6d9e69572e090d,
+        type: 3}
+      propertyPath: investigateClip.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 82071b30e2bdb5740b7c9f026bb4775e, type: 3}
     - target: {fileID: 7657094290044961353, guid: efd1326a92236df46a6d9e69572e090d,
         type: 3}
       propertyPath: m_Name

@@ -29,6 +29,15 @@ public class AIController : MonoBehaviour
     }
     public state myState;
     public LayerMask suspiciousObjects;
+
+    // audio
+    public AudioClip[] busyClips;
+    public AudioClip susClip;
+    public AudioClip shufflingClip;
+    public AudioClip[] investigateClip;
+    private bool audioBoolOne = false;
+    private bool audioBoolTwo = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +63,13 @@ public class AIController : MonoBehaviour
         }
     }
     IEnumerator GrowSuspician(){
+        if (audioBoolTwo != true)
+        {
+            audioBoolTwo = true;
+            AudioManager.Instance.PlaySFX(investigateClip[Random.Range(0, investigateClip.Length)], 0.8f, 1.0f);
+            AudioManager.Instance.PlaySFX(shufflingClip, 0.8f, 1.0f);
+            StartCoroutine(MakeAudioBoolTwoFalse());
+        }
         myState=state.Investigating;
         yield return new WaitForSeconds(suspicionSpeed);
         suspicionProgress++;
@@ -62,6 +78,8 @@ public class AIController : MonoBehaviour
     }
     IEnumerator FindNewDestination(float waitTime){
         myState=state.Busy;
+        // play im busy
+        AudioManager.Instance.PlaySFX(busyClips[Random.Range(0, busyClips.Length)], 0.8f, 1.0f);
         agent.isStopped=true;
         yield return new WaitForSeconds(waitTime);
         myState=state.Walking;     
@@ -87,7 +105,13 @@ public class AIController : MonoBehaviour
                 Debug.DrawLine(hit.transform.position,transform.position);
                 if(Physics.Raycast(transform.position,hit.transform.position-transform.position,out los,visionRadius)){
                     if(los.collider.CompareTag("Sus")){
-                        myState=state.Suspicous;
+                        if (audioBoolOne != true)
+                        {
+                            audioBoolOne = true;
+                            AudioManager.Instance.PlaySFX(susClip, 0.8f, 1.0f);
+                            StartCoroutine(MakeAudioBoolOneFalse());
+                        }
+                        myState =state.Suspicous;
                         NavMeshHit navHit;
                         NavMesh.SamplePosition(los.point, out navHit, 1,navLayer); 
                         agent.SetDestination(navHit.position); 
@@ -109,5 +133,15 @@ public class AIController : MonoBehaviour
         }
         return agent.destination;
 
+    }
+    IEnumerator MakeAudioBoolOneFalse()
+    {
+        yield return new WaitForSecondsRealtime(7f);
+        audioBoolOne = false;
+    }
+    IEnumerator MakeAudioBoolTwoFalse()
+    {
+        yield return new WaitForSecondsRealtime(4f);
+        audioBoolTwo = false;
     }
 }
