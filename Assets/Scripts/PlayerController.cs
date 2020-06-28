@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     
     public bool isSprinting = false;
 
+    public float SphereCastRadius;
+    public float maxInteractDistance;
+
     Rigidbody rigid;
     //ParticleSystem sprintClouds;
 
@@ -28,18 +31,30 @@ public class PlayerController : MonoBehaviour
 
         if(isSprinting){
             //sprintClouds.Play();
-            Move(input * walkSpeed * sprintModifier);
+            Move(input, walkSpeed * sprintModifier);
         } else{
             //sprintClouds.Pause();
-            Move(input * walkSpeed);
+            Move(input, walkSpeed);
         }
     }
 
-    void Move(Vector3 input){
+    void Interact(){
+        RaycastHit hit;
+        Physics.SphereCast(this.transform.position, SphereCastRadius, this.transform.forward, out hit, maxInteractDistance, ~LayerMask.GetMask("Player"));
+
+        if(hit.collider != null){
+            if(hit.collider.tag.Equals("Interactable")){
+                //WE CAN INTERACT
+            }
+        }
+    }
+
+    void Move(Vector3 input, float speed){
         //TODO use camera position to make the player move at what looks like the same speed in all directions
         rigid.rotation = Quaternion.LookRotation(input);
-        
+        input.Normalize();
+
         input.y = 0;
-        rigid.velocity = input;
+        rigid.velocity = input * speed;
     }
 }
