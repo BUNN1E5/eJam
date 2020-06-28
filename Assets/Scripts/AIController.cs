@@ -94,8 +94,9 @@ public class AIController : MonoBehaviour
     public void DistractAI(GameObject distrcation){
         myState=state.Distracted;
         progressBar.color=Color.green;
-        StopCoroutine(GrowSuspician());
+        StopAllCoroutines();
         agent.destination=distrcation.transform.position;
+        agent.isStopped=false;
         distractionGO=distrcation;
     }
     IEnumerator GrowSuspician(){
