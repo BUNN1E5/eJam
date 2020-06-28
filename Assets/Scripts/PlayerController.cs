@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     public float SphereCastRadius;
     public float maxInteractDistance;
 
+    public Interactable currentInteraction;
+
+    public GameObject heldObject;
+    public Transform heldPosition;
+
     Rigidbody rigid;
     //ParticleSystem sprintClouds;
 
@@ -38,23 +43,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Interact(){
+    Interactable findInteractable(){
         RaycastHit hit;
         Physics.SphereCast(this.transform.position, SphereCastRadius, this.transform.forward, out hit, maxInteractDistance, ~LayerMask.GetMask("Player"));
 
+        Debug.DrawLine(this.transform.position, hit.point);
+        Debug.DrawRay(this.transform.position, this.transform.forward);
+
         if(hit.collider != null){
             if(hit.collider.tag.Equals("Interactable")){
-                //WE CAN INTERACT
+                return hit.transform.gameObject.GetComponent<Interactable>();
             }
         }
+        return null;
+    }
+
+    void Interact(){
+        currentInteraction = findInteractable();
+        currentInteraction.OnInteract();
+    }
+
+    void UnInteract(){
+        currentInteraction.UnInteract();
+        currentInteraction = null;
     }
 
     void Move(Vector3 input, float speed){
-        //TODO use camera position to make the player move at what looks like the same speed in all directions
-        rigid.rotation = Quaternion.LookRotation(input);
+        //TODO use camera position to make the player move at what looks like the same speed in all direction       
         input.Normalize();
 
         input.y = 0;
         rigid.velocity = input * speed;
+        
+        if(rigid.velocity.magnitude > .1f) //So we maintain our last moved
+            rigid.rotation = Quaternion.LookRotation(rigid.velocity);
     }
 }
